@@ -16,14 +16,14 @@ int main()
 	//モジュールのbaseaddrを取得
 	uintptr_t moduleBase = GetModuleBaseAddress(procId, L"ac_client.exe");
 
-	std::cout << "moduleBase = " << moduleBase << std::endl;
+	std::cout << "moduleBase = " << "0x" <<std::hex << moduleBase << std::endl;
 
 
 	//プロセスへのハンドルを取得
 	HANDLE hProcess = 0;
 	hProcess = OpenProcess(PROCESS_ALL_ACCESS, NULL, procId);
 	
-	std::cout << "hProcess = " << hProcess << std::endl;
+	std::cout << "hProcess = " << std::dec << hProcess << std::endl;
 
 	//ammoポインターチェーンのbaseaddrをリゾルブ
 	uintptr_t dynamicPtrBaseAddr = moduleBase + 0x10f4f4;
@@ -64,9 +64,12 @@ int main()
 	使用した関数
 
 	GetProcId (ユーザー定義)
+		L	CreateToolhelp32Snapshot
 	GetModuleBaseAddress (ユーザー定義)
+		L	CreateToolhelp32Snapshot
 	OpenProcess
 	FindDMAAddy (ユーザー定義)
+		L	ReadProcessMemory
 	ReadProcessMemory
 	WriteProcessMemory
 
